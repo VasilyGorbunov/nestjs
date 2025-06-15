@@ -31,12 +31,15 @@ export class TaskService {
   }
 
   create(dto: CreateTaskDto): Task[] {
-    const { title } = dto;
+    const { title, description, priority, tags } = dto;
 
     const newTask: Task = {
       id: this.tasks.length + 1,
       title,
       isCompleted: false,
+      description,
+      priority,
+      tags,
     };
 
     this.tasks.push(newTask);
@@ -45,11 +48,12 @@ export class TaskService {
   }
 
   update(id: number, dto: UpdateTaskDto): Task {
-    const { title, isCompleted } = dto;
+    const { title, isCompleted, description } = dto;
     const task = this.findById(id);
 
     task.title = title;
     task.isCompleted = isCompleted;
+    task.description = description;
 
     return task;
   }
